@@ -240,7 +240,61 @@ style="padding:12px 20px;border:none;border-radius:10px;">
 `;
 
 }
+function referPage(){
 
+document.body.innerHTML = `
+
+<div style="padding:20px;text-align:center;color:white;background:#0f172a;height:100vh;">
+
+<h1>👥 Refer & Earn</h1>
+
+<h2>10 Tk Per Referral</h2>
+
+<p>Daily Referral Limit: 10 Friends</p>
+
+<p>Maximum Daily Bonus: 100 Tk</p>
+
+<br>
+
+<input
+type="text"
+value="https://t.me/leifud_bot"
+readonly
+style="width:90%;padding:12px;border-radius:10px;border:none;">
+
+<br><br>
+
+<button
+onclick="copyReferral()"
+style="padding:12px 20px;background:#3b82f6;color:white;border:none;border-radius:10px;">
+
+📋 Copy Referral Link
+
+</button>
+
+<br><br>
+
+<button
+onclick="location.reload()"
+style="padding:12px 20px;border:none;border-radius:10px;">
+
+⬅ Back
+
+</button>
+
+</div>
+
+`;
+
+}
+
+function copyReferral(){
+
+navigator.clipboard.writeText("https://t.me/leifud_bot");
+
+alert("Referral Link Copied!");
+
+}
 function submitWithdraw(){
 
 if(balance < 200){
