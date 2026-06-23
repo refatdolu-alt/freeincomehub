@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <script src='//libtl.com/sdk.js' data-zone='11189850' data-sdk='show_11189850'></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FreeIncome Hub</title>
+
+<script src='//libtl.com/sdk.js'
+data-zone='11189850'
+data-sdk='show_11189850'></script>
 
 <style>
 *{
@@ -17,42 +20,46 @@ font-family:Arial,sans-serif;
 body{
 background:#0f172a;
 color:white;
-text-align:center;
 padding:20px;
 }
 
-.logo{
-font-size:32px;
-font-weight:bold;
+.header{
+text-align:center;
 margin-top:20px;
-color:#22c55e;
+margin-bottom:20px;
 }
 
-.subtitle{
-margin-top:10px;
+.header h1{
+color:#22c55e;
+font-size:32px;
+}
+
+.header p{
 color:#cbd5e1;
+margin-top:8px;
 }
 
 .card{
 background:#1e293b;
 padding:20px;
 border-radius:15px;
-margin-top:20px;
+text-align:center;
+margin-bottom:20px;
 }
 
 .balance{
-font-size:28px;
+font-size:32px;
 font-weight:bold;
 color:#22c55e;
+margin-top:10px;
 }
 
 .btn{
-display:block;
 width:100%;
 padding:16px;
-margin-top:15px;
 border:none;
 border-radius:12px;
+margin-top:12px;
 font-size:18px;
 font-weight:bold;
 color:white;
@@ -71,8 +78,13 @@ background:#22c55e;
 background:#3b82f6;
 }
 
+.withdraw{
+background:#f59e0b;
+}
+
 .footer{
-margin-top:30px;
+text-align:center;
+margin-top:25px;
 color:#94a3b8;
 }
 </style>
@@ -80,30 +92,21 @@ color:#94a3b8;
 
 <body>
 
-<div class="logo">💰 FreeIncome Hub</div>
-
-<p class="subtitle">
-Complete Tasks & Earn Money
-</p>
+<div class="header">
+<h1>💰 FreeIncome Hub</h1>
+<p>Watch Ads & Earn Rewards</p>
+</div>
 
 <div class="card">
-<p>Your Balance</p>
-<div class="balance">0 Taka</div>
+<h3>Your Balance</h3>
+<div class="balance" id="balance">0 Tk</div>
 </div>
 
 <button class="btn ads" onclick="watchAd()">
-📺 Watch Ads
+📺 Watch Ads (+5 Tk)
 </button>
 
-<script>
-function watchAd() {
-    show_11189850().then(() => {
-        alert('Ad completed! Reward added.');
-    });
-}
-</script>
-
-<button class="btn reward">
+<button class="btn reward" onclick="dailyReward()">
 🎁 Daily Reward
 </button>
 
@@ -111,9 +114,131 @@ function watchAd() {
 👥 Refer Friends
 </button>
 
+<button class="btn withdraw" onclick="withdrawPage()">
+💸 Withdraw
+</button>
+
 <div class="footer">
 FreeIncome Hub © 2026
 </div>
+
+<script>
+
+let balance = parseInt(localStorage.getItem("balance") || "0");
+
+updateBalance();
+
+function updateBalance(){
+document.getElementById("balance").innerText = balance + " Tk";
+}
+
+function watchAd(){
+show_11189850().then(() => {
+
+balance += 5;
+
+localStorage.setItem("balance", balance);
+
+updateBalance();
+
+alert("5 Tk Added Successfully!");
+
+});
+}
+
+function dailyReward(){
+
+balance += 2;
+
+localStorage.setItem("balance", balance);
+
+updateBalance();
+
+alert("Daily Reward Added!");
+
+}
+
+function withdrawPage(){
+
+document.body.innerHTML = `
+
+<div style="padding:20px;text-align:center;color:white;background:#0f172a;height:100vh;">
+
+<h1>💸 Withdraw</h1>
+
+<br>
+
+<h2>Balance: ${balance} Tk</h2>
+
+<br>
+
+<p>Minimum Withdraw Cash: 200 Tk</p>
+
+<br>
+
+<select style="width:90%;padding:12px;border-radius:10px;">
+
+<option>bKash</option>
+
+<option>Nagad</option>
+
+</select>
+
+<br><br>
+
+<input
+type="text"
+placeholder="Mobile Number"
+style="width:90%;padding:12px;border-radius:10px;border:none;">
+
+<br><br>
+
+<input
+type="number"
+placeholder="Withdraw Amount"
+style="width:90%;padding:12px;border-radius:10px;border:none;">
+
+<br><br>
+
+<button
+onclick="submitWithdraw()"
+style="padding:14px 25px;background:#22c55e;color:white;border:none;border-radius:10px;font-size:16px;">
+
+Submit Withdraw
+
+</button>
+
+<br><br>
+
+<button
+onclick="location.reload()"
+style="padding:12px 20px;border:none;border-radius:10px;">
+
+⬅ Back
+
+</button>
+
+</div>
+
+`;
+
+}
+
+function submitWithdraw(){
+
+if(balance < 200){
+
+alert("Minimum Withdraw Amount is 200 Tk");
+
+return;
+
+}
+
+alert("Withdraw Request Submitted");
+
+}
+
+</script>
 
 </body>
 </html>
