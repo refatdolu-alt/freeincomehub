@@ -148,13 +148,30 @@ alert("5 Tk Added Successfully!");
 
 function dailyReward(){
 
+let lastClaim = localStorage.getItem("lastReward");
+let now = Date.now();
+
+if(lastClaim){
+
+let diff = now - parseInt(lastClaim);
+
+if(diff < 86400000){
+
+alert("You already claimed today's reward!");
+return;
+
+}
+
+}
+
 balance += 2;
 
 localStorage.setItem("balance", balance);
+localStorage.setItem("lastReward", now);
 
 updateBalance();
 
-alert("Daily Reward Added!");
+alert("Daily Reward Claimed!");
 
 }
 
