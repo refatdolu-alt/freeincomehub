@@ -91,9 +91,17 @@ Complete Tasks & Earn Money
 <div class="balance">0 Taka</div>
 </div>
 
-<button class="btn ads">
+<button class="btn ads" onclick="watchAd()">
 📺 Watch Ads
 </button>
+
+<script>
+function watchAd() {
+    show_11189850().then(() => {
+        alert('Ad completed! Reward added.');
+    });
+}
+</script>
 
 <button class="btn reward">
 🎁 Daily Reward
